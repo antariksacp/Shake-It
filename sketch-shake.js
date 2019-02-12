@@ -21,12 +21,14 @@ var channelGroup = "ubiComp";
 var channel4 = "colors";
 
 let value = 0;
+let threshold = 30;
 
 function setup() {
+	setShakeThreshold(threshold);
 	createCanvas(2000, 2000);
 
-	textSize(80);
-  text("SHAKE WHEN LATE", 0, 0, 600, 400);
+	textSize(100);
+  text("YOU'RE LATE!", 300, 300, 600, 400);
 	// var testButton
 	// testButton = createButton('Click me');
 	// testButton.position(windowWidth/2, windowHeight/2);
@@ -41,12 +43,16 @@ function draw() {
 
 function deviceShaken(){
 	// background(random(0, 255), random(0, 255), random(0, 255));
-	background(value, value, value);
-	value = value + 20;
-	if (value > 100){
-		// value = 0;
-		sendData();
+	// background(map(value, 0, 0, 2000, 255));
+	background(value+20, value+20, value-50);
+	value = value + 10;
+	threshold = threshold + 5;
+	if (value > 255){
+		value = 0;
+		threshold = 30;
+
 		}
+		sendData();
 }
 
 function sendData() {
